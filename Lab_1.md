@@ -1,155 +1,153 @@
+### Quickstart: Create an event hub using Azure portal
 
-Quickstart: Create an Azure Event Hubs schema registry using Azure portal
-=========================================================================
 
 In this lab:
 
 1. Prerequisites
-2. Create a schema group
-3. Add a schema to the schema group
-4. Create a new version of schema
-5. Clean up resources
+2. Create a resource group
+3. Create an Event Hubs namespace
+4. Create an event hub
 
+Azure Event Hubs is a Big Data streaming platform and event ingestion
+service that can receive and process millions of events per second.
+Event Hubs can process and store events, data, or telemetry produced by
+distributed software and devices. Data sent to an event hub can be
+transformed and stored using any real-time analytics provider or
+batching/storage adapters.
 
-**Azure Schema Registry** is a feature of Event Hubs, which provides a
-central repository for schemas for event-driven and messaging-centric
-applications. It provides the flexibility for your producer and consumer
-applications to **exchange data without having to manage and share the schema**. It also provides a simple governance framework for reusable
-schemas and defines relationship between schemas through a grouping
-construct (schema groups).
+In this quickstart, you create an event hub using the [Azure
+portal](https://portal.azure.com/).
 
-This lab shows you how to create a schema group with schemas in a
-schema registry hosted by Azure Event Hubs.
+Prerequisites
+-----------------------------------------------------------------------------------------------------------------------------------
 
+To complete this quickstart, make sure that you have:
 
+-   Azure subscription. If you don\'t have one, [create a free
+    account](https://azure.microsoft.com/free/) before you begin.
 
--   The feature isn\'t available in the **basic** tier.
--   If the event hub is in a **virtual network**, you won\'t be able to
-    create schemas in the Azure portal unless you access the portal from
-    a VM in the same virtual network.
+Create a resource group
+-------------------------------------------------------------------------------------------------------------------------------------------------------
 
+A resource group is a logical collection of Azure resources. All
+resources are deployed and managed in a resource group. To create a
+resource group:
 
-Create a schema group
---------------------------------------------------------------------------------------------------------------------------------------------------------
+1.  Sign in to the [Azure portal](https://portal.azure.com/).
 
-1.  Navigate to the **Event Hubs Namespace** page.
+2.  In the left navigation, select **Resource groups**. Then select
+    **Add**.
 
-2.  Select **Schema Registry** on the left menu. To create a schema
-    group, select **+ Schema Group** on the toolbar.
+    ![Resource groups - Add button](./images/resource-groups1.png)
 
-    ![Image showing the Schema Registry page in the Azure
-    portal](./images/namespace-page.png)
+3.  For **Subscription**, select the name of the Azure subscription in
+    which you want to create the resource group.
 
-3.  On the **Create Schema Group** page, do these steps:
+4.  Type a unique **name for the resource group**. The system
+    immediately checks to see if the name is available in the currently
+    selected Azure subscription.
 
-    1.  Enter a **name** for the schema group.
+5.  Select a **region** for the resource group.
 
-    2.  For **Serialization type**, pick a serialization format that
-        applies to all schemas in the schema group. Currently, **Avro**
-        is the only type supported, so select **Avro**.
+6.  Select **Review + Create**.
 
-    3.  Select a **compatibility mode** for all schemas in the group.
-        For **Avro**, forward and backward compatibility modes are
-        supported.
+    ![Resource group - create](./images/resource-groups2.png)
 
-    4.  Then, select **Create** to create the schema group.
+7.  On the **Review + Create** page, select **Create**.
 
-        ![Image showing the page for creating a schema
-        group](./images/create-schema-group-page.png)
+Create an Event Hubs namespace
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+An Event Hubs namespace provides a unique scoping container, in which
+you create one or more event hubs. To create a namespace in your
+resource group using the portal, do the following actions:
+
+1.  In the Azure portal, and select **Create a resource** at the top
+    left of the screen.
+
+2.  Select **All services** in the left menu, and select **star (`*`)**
+    next to **Event Hubs** in the **Analytics** category. Confirm that
+    **Event Hubs** is added to **FAVORITES** in the left navigational
+    menu.
+
+    ![Search for Event Hubs](./images/select-event-hubs-menu.png)
+
+3.  Select **Event Hubs** under **FAVORITES** in the left navigational
+    menu, and select **Add** on the toolbar.
+
+    ![Add button](./images/event-hubs-add-toolbar.png)
+
+4.  On the **Create namespace** page, take the following steps:
+
+    1.  Select the **subscription** in which you want to create the
+        namespace.
+
+    2.  Select the **resource group** you created in the previous step.
+
+    3.  Enter a **name** for the namespace. The system immediately
+        checks to see if the name is available.
+
+    4.  Select a **location** for the namespace.
+
+    5.  Choose **Basic** for the **pricing tier**.
+
+    6.  Leave the **throughput units** (for standard tier) or
+        **processing units** (for premium tier) settings as it is.
+
+    7.  Select **Review + Create** at the bottom of the page.
+
+        ![](./images/create-event-hub1.png)
+
+    8.  On the **Review + Create** page, review the settings, and select
+        **Create**. Wait for the deployment to complete.
+
+        ![Review + create page](./images/review-create.png)
+
+    9.  On the **Deployment** page, select **Go to resource** to
+        navigate to the page for your namespace.
+
+        ![](./images/deployment-complete.png)
+
+    10. Confirm that you see the **Event Hubs Namespace** page similar
+        to the following example:
+
+        ![](./images/namespace-home-page.png)
+
+        Note
+
+        Azure Event Hubs provides you with a Kafka endpoint. This
+        endpoint enables your Event Hubs namespace to natively
+        understand [Apache Kafka](https://kafka.apache.org/intro)
+        message protocol and APIs. With this capability, you can
+        communicate with your event hubs as you would with Kafka topics
+        without changing your protocol clients or running your own
+        clusters. Event Hubs supports [Apache Kafka versions
+        1.0](https://kafka.apache.org/10/documentation.html) and later.
         
 
-4.  Select the name of the **schema group** in the list of schema
-    groups.
+Create an event hub
+-----------------------------------------------------------------------------------------------------------------------------------------------
 
-    ![Image showing schema group in the list
-    selected.](./images/select-schema-group.png)
-    
-5.  You see the **Schema Group** page for the group.
+To create an event hub within the namespace, do the following actions:
 
-    ![Image showing the Schema Group
-    page](./images/schema-group-page.png)
+1.  On the Event Hubs Namespace page, select **Event Hubs** in the left
+    menu.
 
-Add a schema to the schema group
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2.  At the top of the window, select **+ Event Hub**.
 
-In this section, you add a schema to the schema group using the Azure
-portal.
+    ![Add Event Hub - button](./images/create-event-hub4.png)
 
-1.  On the **Schema Group** page, select **+ Schema** on the toolbar.
+3.  Type a name for your event hub, then select **Create**.
 
-2.  On the **Create Schema** page, do these steps:
+    ![Create event hub](./images/create-event-hub5.png)
 
-    1.  For **Name**, enter **orderschema**.
+    The **partition count** setting allows you to parallelize
+    consumption across many consumers.
 
-    2.  Enter the following **schema** into the text box. You can also
-        select file with the schema.
+    The **message retention** setting specifies how long the Event Hubs
+    service keeps data.
 
+4.  You can check the status of the event hub creation in alerts. After
+    the event hub is created, you see it in the list of event hubs.
 
-        ```
-        {
-          "namespace": "com.azure.schemaregistry.samples",
-          "type": "record",
-          "name": "Order",
-          "fields": [
-            {
-              "name": "id",
-              "type": "string"
-            },
-            {
-              "name": "amount",
-              "type": "double"
-            }
-          ]
-        }
-        ```
-
-    3.  Select **Create**.
-
-3.  Select the **schema** from the list of schemas.
-
-    ![Image showing the schema
-    selected.](./images/select-schema.png)
-
-4.  You see the **Schema Overview** page for the schema.
-
-    ![Image showing the Schema Overview
-    page.](./images/schema-overview-page.png)
-
-5.  If there are multiple versions of a schema, you see them in the
-    **Versions** drop-down list. Select a version to switch to that
-    version schema.
-
-Create a new version of schema
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-1.  Update the schema in the text box, and select **Validate**. In the
-    following example, a new field `description` has been added to the
-    schema.
-
-    ![Image showing the Update schema
-    page](./images/update-schema.png)
-
-2.  Review validation status and changes, and select **Save**.
-
-    ![Image showing the Review page that shows validation status,
-    changes, and save](./images/compare-save-schema.png)
-    
-
-3.  You see that `2` is selected for the **version** on the **Schema Overview** page.
-
-    ![Image showing the new version of
-    schema](./images/new-version.png)
-
-4.  Select `1` to see the version 1 of the schema.
-
-
-Clean up resources
-------------------
-
-1.  Navigate to the **Event Hubs Namespace** page.
-2.  Select **Schema Registry** on the left menu.
-3.  Select the **schema group** you created in this quickstart.
-4.  On the **Schema Group** page, select **Delete** on the toolbar.
-5.  On the **Delete Schema Group** page, type the name of the schema
-    group, and select **Delete**.
-
+    ![Event hub created](./images/event-hub-created.png)
